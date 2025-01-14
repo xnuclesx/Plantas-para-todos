@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Vivero virtual Plantas para Todos - Venta de suculentas, cactus y plantas decorativas">
+  <title>Plantas para Todos - Vivero Virtual</title>
+  <style>
+    /* Import leaf icon for bullet points */
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+    :root {
+      --primary-color: #4CAF50;
+      --secondary-color: #A5D6A7;
+      --accent-color: #FF9800;
+      --background-color: #F9FBE7;
+      --text-color: #2E2E2E;
+      --focus-outline: 3px solid #4CAF50;
+      --header-bg: #E8F5E9;
+      --nav-bg: #C8E6C9;
+      --link-color: #2E7D32;
+      --button-hover: #66BB6A;
+      --border-radius: 15px;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--background-color);
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 5C15 5 5 15 5 30s10 25 25 25 25-10 25-25S45 5 30 5zm0 45C17.3 50 10 42.7 10 30S17.3 10 30 10s20 7.3 20 20-7.3 20-20 20z' fill='%234CAF50' fill-opacity='0.1'/%3E%3C/svg%3E");
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* Leaf-shaped corners for sections */
+    .leaf-corner {
+      position: relative;
+    }
+
+    .leaf-corner::before {
+      content: '🌿';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      font-size: 24px;
+      transform: rotate(-45deg);
+    }
+
+    header {
+      background-color: var(--header-bg);
+      background-image: linear-gradient(120deg, #E8F5E9 0%, #C8E6C9 100%);
+      color: var(--text-color);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 5px solid var(--primary-color);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative plants in header */
+    header::before,
+    header::after {
+      content: '🌵';
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.2;
+    }
+
+    header::before {
+      left: 20px;
+      top: 20px;
+    }
+
+    header::after {
+      right: 20px;
+      top: 20px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      position: relative;
+      display: inline-block;
+    }
+
+    h1::before,
+    h1::after {
+      content: '🌱';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+    }
+
+    h1::before {
+      left: -40px;
+    }
+
+    h1::after {
+      right: -40px;
+    }
+
+    nav {
+      background-color: var(--nav-bg);
+      padding: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+      justify-content: center;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: var(--border-radius);
+      font-weight: bold;
+      transition: all 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.7);
+      border: 2px solid transparent;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      background-color: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+      border-color: var(--secondary-color);
+    }
+
+    section {
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+      border: 2px solid var(--secondary-color);
+      max-width: 1200px;
+    }
+
+    /* Cactus-themed bullets for lists */
+    ul:not(nav ul) {
+      list-style: none;
+      padding-left: 1.5em;
+    }
+
+    ul:not(nav ul) li::before {
+      content: '🌵';
+      display: inline-block;
+      width: 1.5em;
+      margin-left: -1.5em;
+      font-size: 0.8em;
+    }
+
+    /* Plant-themed cards for products */
+    .product-card {
+      border: 2px solid var(--secondary-color);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin: 1rem 0;
+      background-color: white;
+      transition: transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::after {
+      content: '🌿';
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      font-size: 2rem;
+      opacity: 0.1;
+      transform: rotate(45deg);
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    .product-grid figure {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      /* Asegura que todas las figuras tengan la misma altura */
+    }
+
+    .product-grid img {
+      width: 100%;
+      height: 300px;
+      /* Altura fija para todas las imágenes */
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .product-grid figcaption {
+      margin-top: auto;
+      /* Empuja las leyendas hacia abajo */
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    /* Styled form elements */
+    form {
+      background-color: white;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      border: 2px solid var(--secondary-color);
+      position: relative;
+    }
+
+    input,
+    textarea {
+      border: 2px solid var(--secondary-color);
+      border-radius: 10px;
+      padding: 0.8rem;
+      width: 100%;
+      margin-top: 0.5rem;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:hover {
+      background-color: var(--button-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Table styling */
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+      width: 100%;
+      border: 2px solid var(--secondary-color);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+
+    th {
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      padding: 1rem;
+      text-align: left;
+    }
+
+    td {
+      padding: 1rem;
+      border-top: 1px solid var(--secondary-color);
+    }
+
+    tr:hover {
+      background-color: rgba(165, 214, 167, 0.1);
+    }
+
+    /* Image styling */
+    figure {
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border: 3px solid var(--secondary-color);
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.02);
+    }
+
+    figcaption {
+      margin-top: 1rem;
+      font-style: italic;
+      color: var(--text-color);
+    }
+
+    footer {
+      background-color: var(--header-bg);
+      color: var(--text-color);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      border-top: 5px solid var(--primary-color);
+      position: relative;
+    }
+
+    footer::before,
+    footer::after {
+      content: '🌿';
+      position: absolute;
+      bottom: 20px;
+      font-size: 1.5rem;
+      opacity: 0.2;
+    }
+
+    footer::before {
+      left: 20px;
+    }
+
+    footer::after {
+      right: 20px;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav a {
+        width: 100%;
+        text-align: center;
+      }
+
+      section {
+        margin: 1rem;
+        padding: 1rem;
+      }
+
+      h1::before,
+      h1::after {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header role="banner" tabindex="1">
+    <h1 tabindex="2">Plantas para Todos</h1>
+    <p tabindex="3">¡Bienvenido a nuestro vivero virtual!</p>
+  </header>
+
+  <nav role="navigation" aria-label="Menú principal" tabindex="4">
+    <ul>
+      <li><a href="#quien-soy" tabindex="5">Quién soy</a></li>
+      <li><a href="#productos" tabindex="6">Productos</a></li>
+      <li><a href="#contacto" tabindex="7">Contacto</a></li>
+      <li><a href="#video" tabindex="8">Video</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content" role="main" tabindex="9">
+    <!-- Video Presentación -->
+    <section id="video" aria-labelledby="video-titulo" tabindex="10">
+      <h2 id="video-titulo" tabindex="11">Video Presentación</h2>
+      <div style="text-align: center;" role="region" aria-label="Video explicativo del emprendimiento" tabindex="12">
+        <iframe 
+          width="560" 
+          height="315" 
+          src="https://www.youtube.com/embed/IxKy-OHQF6A" 
+          title="Explicación del emprendimiento y su misión" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen 
+          tabindex="13">
+        </iframe>
+      </div>
+      <p style="text-align: center;" tabindex="14">
+        En este video, explicamos la historia de nuestro emprendimiento, nuestra misión y cómo buscamos llevar un poco de naturaleza a cada hogar. ¡No te lo pierdas!
+      </p>
+    </section>
+  
+    <!-- Quién soy -->
+    <section id="quien-soy" aria-labelledby="quien-soy-titulo" tabindex="15">
+      <h2 id="quien-soy-titulo" tabindex="16">Quién soy</h2>
+      <div class="about-content">
+        <p tabindex="17">
+          ¡Hola! Soy Adrián Paguay, un apasionado cultivador de plantas y amante de la naturaleza. Este es un
+          emprendimiento desde el hogar, nacido de la idea de llevar un poco de naturaleza y frescura a cada hogar.
+        </p>
+  
+        <p tabindex="18">
+          Si bien cuento con una gran variedad de plantas en mi vivero, nos especializamos en la venta de suculentas
+          y cactus. Estas plantas son ideales para principiantes, ya que su cuidado es mucho más sencillo en comparación
+          con otras especies. Además, son perfectas para embellecer cualquier espacio, desde oficinas hasta jardines.
+        </p>
+  
+        <p tabindex="19">
+          Este emprendimiento está inspirado en la idea de que todos merecemos un rincón de naturaleza en nuestro hogar,
+          sin importar el tamaño o la experiencia en el cuidado de plantas. Estoy aquí para apoyarte en cada paso del
+          camino, desde la selección de la planta adecuada hasta su cuidado continuo.
+        </p>
+      </div>
+  
+      <figure tabindex="20">
+        <img src="https://cdn0.ecologiaverde.com/es/posts/1/4/4/cuidados_de_las_suculentas_guia_practica_2441_1_600.jpg"
+          alt="Primer plano de manos sosteniendo con cuidado una suculenta en maceta de cerámica blanca. La planta muestra hojas carnosas de color verde vibrante y la tierra está cubierta con pequeñas piedras decorativas"
+          width="250" tabindex="21">
+        <figcaption tabindex="22">Demostrando el cuidado apropiado de nuestras suculentas</figcaption>
+      </figure>
+  
+      <div class="mission-statement" tabindex="23">
+        <h3 tabindex="24">Mi Misión</h3>
+        <p tabindex="25">
+          Mi misión es acercar la naturaleza a cada hogar y hacer que el cuidado de plantas sea algo sencillo y
+          accesible para todos. Creo firmemente que un poco de verde en tu vida puede marcar una gran diferencia,
+          y estoy comprometido a ayudarte a encontrar la planta perfecta para tu espacio.
+        </p>
+      </div>
+    </section>
+  
+    <!-- Productos -->
+    <section id="productos" aria-labelledby="productos-titulo" tabindex="26">
+      <h2 id="productos-titulo" tabindex="27">Productos Disponibles</h2>
+      <p tabindex="28">Explora nuestra selección de plantas cuidadosamente cultivadas:</p>
+      <div class="product-grid" role="grid" aria-label="Galería de productos" tabindex="29">
+        <figure tabindex="30">
+          <img src="Suculenta Echeveria.jpeg" alt="Suculenta Echeveria elegante" width="300" tabindex="31">
+          <figcaption tabindex="32">Echeveria elegante en maceta decorativa</figcaption>
+        </figure>
+        <figure tabindex="33">
+          <img src="Cactus mini.jpeg" alt="Cactus mini" width="300" tabindex="34">
+          <figcaption tabindex="35">Cactus mini ideal para espacios reducidos</figcaption>
+        </figure>
+        <figure tabindex="36">
+          <img src="Suculenta jade.jpeg" alt="Suculenta Jade" width="300" tabindex="37">
+          <figcaption tabindex="38">Jade robusta perfecta para interiores</figcaption>
+        </figure>
+        <figure tabindex="39">
+          <img src="Kalanchoe.jpeg" alt="Kalanchoe florecido" width="300" tabindex="40">
+          <figcaption tabindex="41">Kalanchoe florecido con colores vibrantes</figcaption>
+        </figure>
+      </div>
+      <!-- Tabla de productos -->
+      <table aria-label="Lista de productos y precios" tabindex="42">
+        <caption tabindex="43">Catálogo de plantas disponibles</caption>
+        <thead>
+          <tr>
+            <th scope="col" tabindex="44">Planta</th>
+            <th scope="col" tabindex="45">Descripción</th>
+            <th scope="col" tabindex="46">Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" tabindex="47">Suculenta Jade</th>
+            <td tabindex="48">Planta de hojas gruesas y tallo leñoso, ideal para interiores</td>
+            <td tabindex="49">$3.00</td>
+          </tr>
+          <tr>
+            <th scope="row" tabindex="50">Cactus Mini</th>
+            <td tabindex="51">Cactus pequeño perfecto para escritorios o espacios reducidos</td>
+            <td tabindex="52">$2.50</td>
+          </tr>
+          <tr>
+            <th scope="row" tabindex="53">Echeveria</th>
+            <td tabindex="54">Suculenta de hojas carnosas, requiere poco riego y mucha luz</td>
+            <td tabindex="55">$3.50</td>
+          </tr>
+          <tr>
+            <th scope="row" tabindex="56">Kalanchoe</th>
+            <td tabindex="57">Planta con bonitas flores, se adapta bien tanto a interior como exterior</td>
+            <td tabindex="58">$4.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  
+    <!-- Contacto -->
+    <section id="contacto" aria-labelledby="contacto-titulo" tabindex="59">
+      <h2 id="contacto-titulo" tabindex="60">Contacto</h2>
+      <form action="#" method="POST" aria-label="Formulario de contacto" tabindex="61">
+        <div class="form-group">
+          <label for="nombre" tabindex="62">Nombre completo:</label>
+          <input type="text" id="nombre" name="nombre" required aria-required="true" tabindex="63">
+        </div>
+        <div class="form-group">
+          <label for="email" tabindex="64">Correo electrónico:</label>
+          <input type="email" id="email" name="email" required aria-required="true" tabindex="65">
+        </div>
+        <div class="form-group">
+          <label for="mensaje" tabindex="66">Mensaje:</label>
+          <textarea id="mensaje" name="mensaje" rows="5" required aria-required="true" tabindex="67"></textarea>
+        </div>
+        <button type="submit" tabindex="68">Enviar mensaje</button>
+      </form>
+      <div class="social-links" role="complementary" tabindex="69">
+        <h3 tabindex="70">Síguenos en redes sociales</h3>
+        <ul>
+          <li><a href="#" aria-label="Visita nuestra página de Facebook" tabindex="71">Facebook</a></li>
+          <li><a href="#" aria-label="Síguenos en Instagram" tabindex="72">Instagram</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  
+
+  <footer role="contentinfo" tabindex="73">
+    <p tabindex="74">© 2025 Plantas para Todos - Todos los derechos reservados</p>
+  </footer>
+</body>
+
+</html>
